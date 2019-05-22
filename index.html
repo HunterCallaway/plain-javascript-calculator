@@ -71,6 +71,25 @@
 			const backspaceBtn = document.getElementById('calc-backspace');
 			const displayValElement = document.getElementById('calc-display-val');
 
+			let displayVal = '0';
+			let pendingVal;
+			let evalStringArray = [];
+
+			const calcNumBtns = document.getElementsByClassName('calc-btn-num');
+			const calcOperatorBtns = document.getElementsByClassName('calc-btn-operator');
+
+			const updateDisplayVal = (clickObj) => {
+				let btnText = clickObj.target.innerText;
+			};
+
+			for (let i = 0; i < calcNumBtns.length; i++) {
+				calcNumBtns[i].addEventListener('click', updateDisplayVal, false);
+			}
+
+			for (let i = 0; i < calcOperatorBtns.length; i++) {
+				calcOperatorBtns[i].addEventListener('click', performOperation, false);
+			}
+
 
 		</script>
 
