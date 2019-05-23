@@ -79,6 +79,7 @@
 			const calcOperatorBtns = document.getElementsByClassName('calc-btn-operator');
 
 			const updateDisplayVal = (clickObj) => {
+				//Determine which button was clicked.
 				let btnText = clickObj.target.innerText;
 
 				//Prevent the display element from displaying numbers preceded by '0'.
@@ -95,9 +96,63 @@
 				calcNumBtns[i].addEventListener('click', updateDisplayVal, false);
 			}
 
-/*			for (let i = 0; i < calcOperatorBtns.length; i++) {
+
+			const performOperation = (clickObj) => {
+			//Determine which operator was clicked.
+			let operator = clickObj.target.innerText;
+
+			switch(operator) {
+
+				case '+':
+					pendingVal = displayVal;
+					displayVal = '0';
+					displayValElement.innerText = displayVal;
+					evalStringArray.push(pendingVal);
+					evalStringArray.push('+');
+					break;
+
+				case '-':
+					pendingVal = displayVal;
+					displayVal = '0';
+					displayValElement.innerText = displayVal;
+					evalStringArray.push(pendingVal);
+					evalStringArray.push('-');
+					break;
+
+				case 'x':
+					pendingVal = displayVal;
+					displayVal = '0';
+					displayValElement.innerText = displayVal;
+					evalStringArray.push(pendingVal);
+					evalStringArray.push('*');
+					break;
+
+				case '&#247;':
+					pendingVal = displayVal;
+					displayVal = '0';
+					displayValElement.innerText = displayVal;
+					evalStringArray.push(pendingVal);
+					evalStringArray.push('/');
+					break;
+
+				case '=':
+					evalStringArray.push(pendingVal);
+					const evaluation = eval(evalStringArray.join(' '));
+					displayVal = evaluation + '';
+					displayValElement.innerText = displayVal;
+					evalStringArray = [];
+					break;
+
+				default:
+					break;
+
+			}
+
+			};
+
+			for (let i = 0; i < calcOperatorBtns.length; i++) {
 				calcOperatorBtns[i].addEventListener('click', performOperation, false);
-			}*/
+			}
 
 			clearBtn.onclick = () => {
 				displayVal = '0';
@@ -116,6 +171,15 @@
 					displayVal = '0';
 				}
 
+				//Display the updated entry.
+				displayValElement.innerText = displayVal;
+			};
+
+			decimalBtn.onclick = () => {
+				//If the entry doesn't already include a decimal, add one when the user clicks the decimal button.
+				if(!displayVal.includes('.')) {
+					displayVal = displayVal + '.';
+				}
 				//Display the updated entry.
 				displayValElement.innerText = displayVal;
 			};
