@@ -80,15 +80,45 @@
 
 			const updateDisplayVal = (clickObj) => {
 				let btnText = clickObj.target.innerText;
+
+				//Prevent the display element from displaying numbers preceded by '0'.
+				if(displayVal === '0') {
+					displayVal = '';
+				}
+
+				//Take the number buttons the user clicks and show them on the displayValElement.
+				displayVal = displayVal + btnText;
+				displayValElement.innerText = displayVal;
 			};
 
 			for (let i = 0; i < calcNumBtns.length; i++) {
 				calcNumBtns[i].addEventListener('click', updateDisplayVal, false);
 			}
 
-			for (let i = 0; i < calcOperatorBtns.length; i++) {
+/*			for (let i = 0; i < calcOperatorBtns.length; i++) {
 				calcOperatorBtns[i].addEventListener('click', performOperation, false);
-			}
+			}*/
+
+			clearBtn.onclick = () => {
+				displayVal = '0';
+				pendingVal = undefined;
+				evalStringArray = [];
+				displayValElement.innerText = displayVal;
+			};
+
+			backspaceBtn.onclick = () => {
+				let lengthOfDisplayVal = displayVal.length;
+				//Take the highest-indexed element, and remove it.
+				displayVal = displayVal.slice(0, lengthOfDisplayVal - 1);
+
+				//Make sure '0' is displayed if all of the entered numbers have been deleted.
+				if(displayVal === '') {
+					displayVal = '0';
+				}
+
+				//Display the updated entry.
+				displayValElement.innerText = displayVal;
+			};
 
 
 		</script>
